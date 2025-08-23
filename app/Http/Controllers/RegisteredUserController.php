@@ -35,4 +35,29 @@ class RegisteredUserController extends Controller
         Auth::login($user);
         return redirect('/');
     }
+    public function show()
+    {
+        return view('auth.profile');
+    }
+    public function update(Request $request)
+    {
+        $userAttributes = $request->validate([
+            'name' => ['required'],
+            'email' => ['required', 'email', 'unique:users,email,' . Auth::id()],
+            'password' => ['sometimes', 'confirmed', Password::min(6)],
+        ]);
+
+        if (empty($userAttributes['password'])) {
+            unset($userAttributes['password']);
+        }
+
+        Auth::user()->update($userAttributes);
+
+        return back()->with('success', 'Profile updated successfully.');
+    }
+    public function destroy()
+    {
+        Auth::user()->delete();
+        return redirect('/')->with('success', 'Account deleted successfully.');
+    }
 }

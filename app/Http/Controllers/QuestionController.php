@@ -14,7 +14,7 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = Question::with('user', 'tags')->latest()->get();
-        return view('questions.index', compact('questions'));
+        return view('Home', compact('questions'));
     }
 
     public function create()
