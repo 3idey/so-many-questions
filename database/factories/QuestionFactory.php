@@ -4,12 +4,14 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Question>
  */
 class QuestionFactory extends Factory
 {
+    use HasFactory;
     /**
      * Define the model's default state.
      *
@@ -20,7 +22,7 @@ class QuestionFactory extends Factory
         return [
             'user_id' => User::factory(),
             'title' => fake()->sentence(),
-            'body' => fake()->paragraphs(),
+            'body' => fake()->paragraph(),
         ];
     }
 }

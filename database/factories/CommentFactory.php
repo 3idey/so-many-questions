@@ -6,12 +6,14 @@ use App\Models\User;
 use App\Models\Answer;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comment>
  */
 class CommentFactory extends Factory
 {
+    use HasFactory;
     /**
      * Define the model's default state.
      *
