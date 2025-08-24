@@ -64,12 +64,12 @@
                             {{ \Illuminate\Support\Str::limit($question->body, 160) }}
                         </p>
                         <div class="mt-3 flex flex-wrap items-center gap-2">
-                            @foreach ($question->tags as $tag)
-                                <span
-                                    class="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-700
-                                     dark:bg-blue-900 hover:bg-blue-700 dark:text-blue-200 rounded-full">
+@foreach ($question->tags as $tag)
+                                <a href="{{ route('tags.show', $tag) }}"
+                                   class="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-700
+                                     dark:bg-blue-900 hover:bg-blue-700 hover:text-white dark:text-blue-200 rounded-full">
                                     {{ $tag->name }}
-                                </span>
+                                </a>
                             @endforeach
                         </div>
                     </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\TagController;
 
 Route::get('/', function () {
     return view('Home');
@@ -14,6 +15,10 @@ Route::get('/about', function () {
     return view('about');
 });
 Route::get('/', [QuestionController::class, 'index']);
+
+// Public tag route
+Route::get('/tags/{tag}', [TagController::class, 'show'])->name('tags.show');
+
 // Guest routes (login/register)
 Route::middleware('guest')->group(function () {
     Route::get('/login', [SessionController::class, 'create'])->name('login');

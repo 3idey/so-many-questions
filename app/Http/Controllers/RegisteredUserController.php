@@ -37,7 +37,29 @@ class RegisteredUserController extends Controller
     }
     public function show()
     {
-        return view('auth.profile');
+        $user = Auth::user();
+
+        $questionCount = $user->questions()->count();
+        $answerCount = $user->answers()->count();
+        $commentCount = $user->comments()->count();
+
+        $questions = $user->questions()
+            ->with('tags')
+            ->withCount('answers')
+            ->latest()
+            ->paginate(5, ['*'], 'questions_page');
+
+        $answers = $user->answers()
+            ->with(['question:id,title', 'question.tags'])
+            ->latest()
+            ->paginate(5, ['*'], 'answers_page');
+
+        $comments = $user->comments()
+            ->with(['answer:id,question_id', 'answer.question:id,title'])
+            ->latest()
+            ->paginate(5, ['*'], 'comments_page');
+
+        return view('auth.profile', compact('questions', 'answers', 'comments', 'questionCount', 'answerCount', 'commentCount'));
     }
     public function update(Request $request)
     {

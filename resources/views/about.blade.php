@@ -7,9 +7,8 @@
     <div class="max-w-4xl mx-auto px-6 py-12">
         <!-- Hero Section -->
         <div class="text-center mb-12">
-            <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white">
-                About <span class="text-blue-600">So Many Questions</span>
-            </h1>
+            <span class="text-black/50 text-4xl text-center font-bold">So Many Questions</span>
+
             <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">
                 A community built for comic book fans to discuss, debate, and discover together.
             </p>
@@ -27,8 +26,7 @@
             </div>
 
             <!-- Features -->
-            <div
-                class="p-6 bg-white dark:bg-gray-800 shadow-md rounded-2xl border border-gray-200 dark:border-gray-700">
+            <div class="p-6 bg-white dark:bg-gray-800 shadow-md rounded-2xl border border-gray-200 dark:border-gray-700">
                 <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">What You Can Do Here</h2>
                 <ul class="mt-4 space-y-3 text-gray-600 dark:text-gray-300 list-disc list-inside">
                     <li>💬 Ask and answer questions about comics, storylines, and characters.</li>

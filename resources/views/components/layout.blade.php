@@ -1,7 +1,8 @@
 @props(['heading', 'bgImage' => null])
 <x-header title="{{ $heading }}"></x-header>
 
-<body class="text-black font-sans antialiased {{ $bgImage ? '' : 'bg-gray-300' }}" @if($bgImage) style="background-image: url('{{ asset($bgImage) }}'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;" @endif>
+<body class="text-black font-sans antialiased {{ $bgImage ? '' : 'bg-gray-300' }}"
+    @if ($bgImage) style="background-image: url('{{ asset($bgImage) }}'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;" @endif>
 
     <nav class="bg-gray-200/90 backdrop-blur text-black p-4">
         <div class="container mx-auto justify-between flex items-center">
@@ -19,7 +20,7 @@
             <ul class="flex space-x-6">
                 <li><x-link link="/">Home</x-link>
                 </li>
-                <li><x-link link="#">Questions</x-link>
+                <li><x-link link="/questions">Questions</x-link>
                 </li>
                 <li><x-link link="/about">About</x-link>
                 </li>

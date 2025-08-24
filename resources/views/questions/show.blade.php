@@ -8,8 +8,8 @@
                     <span>by {{ $question->user->name ?? 'Unknown' }}</span>
                 </div>
                 <div class="mt-3 flex flex-wrap gap-2">
-                    @foreach ($question->tags as $tag)
-                        <span class="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200 rounded-full">{{ $tag->name }}</span>
+@foreach ($question->tags as $tag)
+                        <a href="{{ route('tags.show', $tag) }}" class="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200 hover:bg-blue-700 hover:text-white rounded-full">{{ $tag->name }}</a>
                     @endforeach
                 </div>
             </header>
