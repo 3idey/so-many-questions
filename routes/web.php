@@ -28,7 +28,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [RegisteredUserController::class, 'store'])->name('register.store');
 });
 
-// Authenticated routes (logout/profile)
+// Auth routes (logout/profile)
 Route::middleware('auth')->group(function () {
     Route::delete('/logout', [SessionController::class, 'destroy'])->name('logout');
 
@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [RegisteredUserController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Authenticated routes (questions, answers, comments)
+// Auth routes (questions, answers, comments)
 Route::middleware('auth')->group(function () {
     // Questions
     Route::post('/questions', [QuestionController::class, 'store'])->name('questions.store');

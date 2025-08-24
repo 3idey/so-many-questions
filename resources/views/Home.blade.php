@@ -1,4 +1,4 @@
-<x-layout heading="Home">
+<x-layout heading="Home" bgImage="images/comic-bg.jpg">
 
     @auth
         <div class="mb-8 p-6 bg-white dark:bg-gray-900 rounded-2xl shadow border border-gray-200 dark:border-gray-800">
@@ -64,9 +64,9 @@
                             {{ \Illuminate\Support\Str::limit($question->body, 160) }}
                         </p>
                         <div class="mt-3 flex flex-wrap items-center gap-2">
-@foreach ($question->tags as $tag)
+                            @foreach ($question->tags as $tag)
                                 <a href="{{ route('tags.show', $tag) }}"
-                                   class="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-700
+                                    class="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-700
                                      dark:bg-blue-900 hover:bg-blue-700 hover:text-white dark:text-blue-200 rounded-full">
                                     {{ $tag->name }}
                                 </a>
