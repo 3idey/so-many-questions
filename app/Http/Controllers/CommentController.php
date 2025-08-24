@@ -3,30 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
-use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AnswerController extends Controller
+class CommentController extends Controller
 {
-    public function store(Request $request, Question $question)
+    public function store(Request $request, Answer $answer)
     {
         $request->validate([
             'body' => ['required'],
         ]);
 
-        $question->answers()->create([
+        $answer->comments()->create([
             'user_id' => Auth::id(),
             'body' => $request->body,
         ]);
 
-        return back();
-    }
-
-    public function markBest(Question $question, Answer $answer)
-    {
-        $question->answers()->update(['is_best' => false]);
-        $answer->update(['is_best' => true]);
         return back();
     }
 }

@@ -33,6 +33,12 @@
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black" />
                 </div>
 
+                <div>
+                    <label for="current_password" class="block text-sm font-medium text-gray-700">Current Password</label>
+                    <input id="current_password" name="current_password" type="password" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black" />
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-700">New Password</label>
@@ -58,11 +64,17 @@
 
         <div class="md:col-span-1 bg-white shadow rounded-lg p-6 h-fit">
             <h3 class="text-sm font-semibold text-gray-800 mb-3">Danger zone</h3>
-            <form method="POST" action="{{ route('profile.destroy') }}" onsubmit="return confirm('Delete your account? This cannot be undone.');">
+            <form method="POST" action="{{ route('profile.destroy') }}" class="space-y-3">
                 @csrf
                 @method('DELETE')
+                <div>
+                    <label for="delete_current_password" class="block text-sm font-medium text-gray-700">Current Password</label>
+                    <input id="delete_current_password" name="current_password" type="password" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-600 focus:ring-red-600" />
+                </div>
                 <button type="submit"
-                    class="w-full inline-flex items-center justify-center rounded-md bg-red-600 px-4 py-2 text-white hover:bg-red-700 transition-colors">
+                    class="w-full inline-flex items-center justify-center rounded-md bg-red-600 px-4 py-2 text-white hover:bg-red-700 transition-colors"
+                    onclick="return confirm('Delete your account? This cannot be undone.')">
                     Delete account
                 </button>
             </form>

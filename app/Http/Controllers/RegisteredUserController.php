@@ -41,23 +41,38 @@ class RegisteredUserController extends Controller
     }
     public function update(Request $request)
     {
-        $userAttributes = $request->validate([
+        $validated = $request->validate([
+            'current_password' => ['required', 'current_password'],
             'name' => ['required'],
             'email' => ['required', 'email', 'unique:users,email,' . Auth::id()],
-            'password' => ['sometimes', 'confirmed', Password::min(6)],
+            'password' => ['nullable', 'confirmed', Password::min(6)],
         ]);
 
-        if (empty($userAttributes['password'])) {
-            unset($userAttributes['password']);
+        // Remove password if not provided
+        if (empty($validated['password'])) {
+            unset($validated['password']);
         }
 
-        Auth::user()->update($userAttributes);
+        // Do not persist current_password
+        unset($validated['current_password']);
+
+        Auth::user()->update($validated);
 
         return back()->with('success', 'Profile updated successfully.');
     }
-    public function destroy()
+
+    public function destroy(Request $request)
     {
-        Auth::user()->delete();
+        $request->validate([
+            'current_password' => ['required', 'current_password'],
+        ]);
+
+        $user = Auth::user();
+        Auth::logout();
+        $user->delete();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect('/')->with('success', 'Account deleted successfully.');
     }
 }
