@@ -10,6 +10,9 @@ use App\Http\Controllers\CommentController;
 Route::get('/', function () {
     return view('Home');
 });
+Route::get('/about', function () {
+    return view('about');
+});
 Route::get('/', [QuestionController::class, 'index']);
 // Guest routes (login/register)
 Route::middleware('guest')->group(function () {

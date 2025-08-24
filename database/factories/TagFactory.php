@@ -45,6 +45,10 @@ class TagFactory extends Factory
                 'Two-Face',
                 'The Joker',
                 'Doom',
+                'AOT',
+                'Manga',
+                'Demon Slayer',
+                'Attack on Titan',
             ]), // WE make it an array its better
         ];
     }

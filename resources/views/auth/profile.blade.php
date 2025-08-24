@@ -1,6 +1,6 @@
-<x-layout heading="Your Profile">
+<x-layout heading="Your Profile" bgImage="images/comic-bg.jpg">
     <div class="max-w-2xl mx-auto grid gap-8 md:grid-cols-3">
-        <div class="md:col-span-2 bg-white shadow rounded-lg p-6">
+        <div class="md:col-span-2 bg-white/95 backdrop-blur shadow-lg rounded-2xl p-6">
             @if (session('success'))
                 <div class="mb-4 rounded border border-green-300 bg-green-50 text-green-700 p-3 text-sm">
                     {{ session('success') }}
@@ -62,7 +62,7 @@
             </form>
         </div>
 
-        <div class="md:col-span-1 bg-white shadow rounded-lg p-6 h-fit">
+        <div class="md:col-span-1 bg-white/95 backdrop-blur shadow-lg rounded-2xl p-6 h-fit">
             <h3 class="text-sm font-semibold text-gray-800 mb-3">Danger zone</h3>
             <form method="POST" action="{{ route('profile.destroy') }}" class="space-y-3">
                 @csrf

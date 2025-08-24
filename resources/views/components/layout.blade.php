@@ -1,9 +1,9 @@
-@props(['heading'])
+@props(['heading', 'bgImage' => null])
 <x-header title="{{ $heading }}"></x-header>
 
-<body class="bg-gray-300 text-black font-sans antialiased">
+<body class="text-black font-sans antialiased {{ $bgImage ? '' : 'bg-gray-300' }}" @if($bgImage) style="background-image: url('{{ asset($bgImage) }}'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;" @endif>
 
-    <nav class="bg-gray-200 text-black p-4">
+    <nav class="bg-gray-200/90 backdrop-blur text-black p-4">
         <div class="container mx-auto justify-between flex items-center">
             <div>
                 <a href="/">

@@ -1,61 +1,169 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# So Many Questions
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A community-driven Q&A platform for comic book fans to ask, answer, and discuss their favorite stories, characters, and fan theories.
 
-## About Laravel
+Built with Laravel 12, Blade components, Tailwind CSS v4, and Vite.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
+- Authentication: register, login, logout, profile
+- Ask questions with tags
+- Answer questions and mark a best answer (by question owner)
+- Threaded replies to answers (comments)
+- Paginated questions feed on Home
+- Polished UI with Tailwind; comic background on auth and profile pages
 
-## Learning Laravel
+## Tech stack
+- PHP 8.2+, Laravel 12
+- Blade templating and Blade components
+- Tailwind CSS v4 with Vite
+- MySQL/PostgreSQL/SQLite (choose via .env)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Getting started
+1) Clone and install dependencies
+- PHP dependencies
+  ```bash
+  composer install
+  ```
+- JS/CSS dependencies
+  ```bash
+  npm install
+  ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+2) Create your environment file and app key
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Environment and database
+1) Configure your DB in .env (example for MySQL)
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=so_many_questions
+DB_USERNAME=root
+DB_PASSWORD=secret
+```
 
-## Laravel Sponsors
+2) Create the database (if needed)
+```sql
+CREATE DATABASE so_many_questions;
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+3) Run migrations (and optionally seed)
+```bash
+php artisan migrate
+# optionally
+php artisan db:seed
+```
 
-### Premium Partners
+## Run the app
+Option A: Use separate terminals
+```bash
+php artisan serve
+npm run dev
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Option B: One command with concurrency (uses scripts in composer.json)
+```bash
+composer run dev
+```
+This starts:
+- Laravel dev server
+- Queue listener
+- Log viewer (pail)
+- Vite dev server
 
-## Contributing
+Then open http://127.0.0.1:8000
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Project structure (high level)
+- app/Http/Controllers
+  - AnswerController.php
+  - CommentController.php
+  - QuestionController.php
+  - RegisteredUserController.php
+- app/Models
+  - User.php, Question.php, Answer.php, Comment.php, Tag.php
+- resources/views
+  - Home.blade.php
+  - auth/ (login, register, profile)
+  - questions/ (create, show)
+  - components/ (layout, header, footer, link, button, input-section)
+- resources/css/app.css (Tailwind v4 entry)
+- routes/web.php
+- database/migrations (users, questions, answers, comments, tags, pivot)
 
-## Code of Conduct
+## Routes overview
+Note: In the current setup, question routes are inside auth middleware (sign-in required to view). You can move show/index outside auth if you want public visibility.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Auth
+- GET /login – show login
+- POST /login – authenticate
+- GET /register – show register
+- POST /register – create user
+- DELETE /logout – log out
 
-## Security Vulnerabilities
+Profile
+- GET /profile – profile page
+- PATCH /profile – update profile (requires current_password)
+- DELETE /profile – delete account (requires current_password)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Questions
+- GET / – Home (questions index)
+- GET /questions – questions index (same data as home)
+- GET /questions/create – ask a question
+- POST /questions – store question
+- GET /questions/{question} – show a question (with answers and replies)
+- PATCH /questions/{question} – update question (stub)
+- DELETE /questions/{question} – delete question (stub)
+
+Answers
+- POST /questions/{question}/answers – add an answer
+- POST /questions/{question}/answers/{answer}/best – mark answer as best (question owner only)
+
+Replies (comments)
+- POST /answers/{answer}/comments – add a reply to an answer
+
+## Models and relationships
+- User
+  - hasMany Question, hasMany Answer
+- Question
+  - belongsTo User
+  - hasMany Answer
+  - belongsToMany Tag
+- Answer
+  - belongsTo User, belongsTo Question
+  - hasMany Comment
+  - boolean is_best
+- Comment
+  - belongsTo User, belongsTo Answer
+- Tag
+  - belongsToMany Question
+
+## UI components
+Reusable Blade components in resources/views/components:
+- layout: page wrapper with optional bgImage prop
+  - We pass bgImage="images/comic-bg.jpg" on login, register, and profile for a comic background
+- header, footer: document shell (includes @vite)
+- link: nav link styling
+- button: primary button
+- input-section: label + slot + validation error helper
+
+Home page
+- Inline question form for authenticated users
+- Question cards with title, snippet, tags, author, time, answers count
+
+Question page
+- Full question view with tags and body
+- Answer form (+ mark best button for owner)
+- Replies per answer with reply form
+
+
 
 ## License
+MIT
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
