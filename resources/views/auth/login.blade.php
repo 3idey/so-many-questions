@@ -30,7 +30,8 @@
                         class="inline-flex items-center justify-center rounded-md bg-black px-4 py-2 text-white hover:bg-black/80 transition-colors">
                         Sign in
                     </button>
-                    <a href="{{ route('register') }}" class="text-sm text-gray-600 hover:text-gray-900">Create an
+                    <a href="{{ route('register') }}" class="text-sm underline text-gray-600 hover:text-gray-900">Create
+                        an
                         account</a>
                 </div>
             </form>

@@ -32,7 +32,8 @@
                 </div>
 
                 <div>
-                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm
+                        Password</label>
                     <input id="password_confirmation" name="password_confirmation" type="password" required
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black" />
                 </div>
@@ -42,7 +43,8 @@
                         class="inline-flex items-center justify-center rounded-md bg-black px-4 py-2 text-white hover:bg-black/80 transition-colors">
                         Create account
                     </button>
-                    <a href="{{ route('login') }}" class="text-sm text-gray-600 hover:text-gray-900">Already have an account?</a>
+                    <a href="{{ route('login') }}" class="text-sm underline text-gray-600 hover:text-gray-900">Already
+                        have an account?</a>
                 </div>
             </form>
         </div>

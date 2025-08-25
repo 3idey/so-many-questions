@@ -21,16 +21,8 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Password::min(6)],
         ]);
 
-        //     $employerAttributes = $request->validate([
-        //    'employer' => ['required'],
-        //    ]);
         $user = User::create($userAttributes);
 
-
-
-        //    $user->employer()->create([
-        //     'name'=> $employerAttributes['employer'],
-        //    ]);
 
         Auth::login($user);
         return redirect('/');
