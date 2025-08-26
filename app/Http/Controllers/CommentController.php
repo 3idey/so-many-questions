@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Comment;
 
 class CommentController extends Controller
 {
@@ -19,6 +20,12 @@ class CommentController extends Controller
             'body' => $request->body,
         ]);
 
+        return back();
+    }
+
+    public function destroy(Comment $comment)
+    {
+        $comment->delete();
         return back();
     }
 }

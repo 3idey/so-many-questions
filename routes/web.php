@@ -50,7 +50,8 @@ Route::middleware('auth')->group(function () {
     // Answers
     Route::post('/questions/{question}/answers', [AnswerController::class, 'store'])->name('answers.store');
     Route::post('/questions/{question}/answers/{answer}/best', [AnswerController::class, 'markBest'])->name('answers.best');
-
+    Route::delete('/answers/{answer}', [AnswerController::class, 'destroy'])->name('answers.destroy');
     // Comments (replies)
     Route::post('/answers/{answer}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 });

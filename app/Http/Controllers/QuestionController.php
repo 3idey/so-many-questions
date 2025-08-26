@@ -58,4 +58,9 @@ class QuestionController extends Controller
         ]);
         return view('questions.show', compact('question'));
     }
+    public function destroy(Question $question)
+    {
+        $question->delete();
+        return redirect()->route('questions.index');
+    }
 }

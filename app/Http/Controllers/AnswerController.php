@@ -22,9 +22,17 @@ class AnswerController extends Controller
 
         return back();
     }
-
-    public function markBest(Question $question, Answer $answer)
+    public function destroy(Answer $answer)
     {
+        $answer->delete();
+        return back();
+    }
+
+    public function markBest(Question $question, Answer $answer, Request $request)
+    {
+        if ($request->user()->id !== $question->user_id) {
+            abort(403);
+        }
         $question->answers()->update(['is_best' => false]);
         $answer->update(['is_best' => true]);
         return back();

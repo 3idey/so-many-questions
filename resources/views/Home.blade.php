@@ -1,4 +1,4 @@
-<x-layout heading="Home" bgImage="images/comic-bg.jpg">
+<x-layout heading="Home">
 
     @auth
         <div class="mb-8 p-6 bg-white dark:bg-gray-900 rounded-2xl shadow border border-gray-200 dark:border-gray-800">
