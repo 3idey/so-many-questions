@@ -48,8 +48,8 @@
                                 <span>•</span>
                                 <span>{{ $answer->created_at->diffForHumans() }}</span>
                                 @if ($answer->is_best)
-                                    <span
-                                        class="ml-2 px-2 py-0.5 text-xs rounded bg-green-100 text-green-700">Best</span>
+                                    <span class="ml-2 px-2 py-0.5 text-xs rounded bg-green-100 text-green-700">Crazy
+                                        Theory</span>
                                 @endif
                             </div>
                             <p class="mt-2 text-gray-800 dark:text-gray-200 whitespace-pre-line">{{ $answer->body }}
@@ -59,7 +59,7 @@
                             @if (auth()->id() === $question->user_id && !$answer->is_best)
                                 <form method="POST" action="{{ route('answers.best', [$question, $answer]) }}">
                                     @csrf
-                                    <x-button type="submit">Mark as Best</x-button>
+                                    <x-button type="submit">Mark as Crazy Theory</x-button>
                                 </form>
                             @endif
                         @endauth
