@@ -6,6 +6,7 @@ use App\Models\Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
+use Termwind\Components\Raw;
 
 class CommentController extends Controller
 {
@@ -23,8 +24,11 @@ class CommentController extends Controller
         return back();
     }
 
-    public function destroy(Comment $comment)
+    public function destroy(Comment $comment, Request $request)
     {
+        if ($comment->user_id !== $request->user()->id) {
+            abort(403);
+        }
         $comment->delete();
         return back();
     }

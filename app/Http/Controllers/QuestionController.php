@@ -58,8 +58,11 @@ class QuestionController extends Controller
         ]);
         return view('questions.show', compact('question'));
     }
-    public function destroy(Question $question)
+    public function destroy(Question $question, Request $request)
     {
+        if ($question->user_id !== $request->user()->id) {
+            abort(403);
+        }
         $question->delete();
         return redirect()->route('questions.index');
     }

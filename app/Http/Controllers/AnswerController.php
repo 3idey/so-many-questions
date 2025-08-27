@@ -22,8 +22,11 @@ class AnswerController extends Controller
 
         return back();
     }
-    public function destroy(Answer $answer)
+    public function destroy(Answer $answer, Request $request, Question $question)
     {
+        if ($answer->user_id !== $request->user()->id && $request->user()->id !== $question->user_id) {
+            abort(403);
+        }
         $answer->delete();
         return back();
     }

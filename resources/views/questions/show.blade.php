@@ -7,6 +7,24 @@
                     <span>Asked {{ $question->created_at->diffForHumans() }}</span>
                     <span>by {{ $question->user->name ?? 'Unknown' }}</span>
                 </div>
+                <div>
+                    @auth
+                        @if ($question->user_id === auth()->user()->id)
+                            <form method="POST" action="{{ route('questions.destroy', $question) }}">
+                                @csrf
+                                @method('DELETE')
+                                <div class="">
+                                    <button tybe="submit"
+                                        class="inline-flex items-center justify-center
+                                        gap-2 px-4 py-2 rounded-xl bg-red-600 text-white font-medium shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-60 disabled:cursor-not-allowed">
+
+                                        Delete</button>
+
+                                </div>
+                            </form>
+                        @endif
+                    @endauth
+                </div>
                 <div class="mt-3 flex flex-wrap gap-2">
                     @foreach ($question->tags as $tag)
                         <a href="{{ route('tags.show', $tag) }}"
@@ -55,6 +73,24 @@
                             <p class="mt-2 text-gray-800 dark:text-gray-200 whitespace-pre-line">{{ $answer->body }}
                             </p>
                         </div>
+                        <div>
+                            @auth
+                                @if ($answer->user_id === auth()->user()->id)
+                                    <form method="POST" action="{{ route('answers.destroy', $answer) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <div class="">
+                                            <button tybe="submit"
+                                                class="inline-flex items-center justify-center
+                                        gap-2 px-4 py-2 rounded-xl bg-red-600 text-white font-medium shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-60 disabled:cursor-not-allowed">
+
+                                                Delete</button>
+
+                                        </div>
+                                    </form>
+                                @endif
+                            @endauth
+                        </div>
                         @auth
                             @if (auth()->id() === $question->user_id && !$answer->is_best)
                                 <form method="POST" action="{{ route('answers.best', [$question, $answer]) }}">
@@ -80,24 +116,25 @@
                                     </div>
                                     <p class="mt-1 text-gray-800 dark:text-gray-200">{{ $comment->body }}</p>
                                 </div>
-                            @endforeach
-                        </div>
-                        {{-- @auth
-                            @if (auth()->id() === $comment->user_id)
-                                <form method="POST" action="{{ route('comments.destroy'), $comment->id }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <div class="">
-                                        <button tybe="submit"
-                                            class="inline-flex items-center justify-center
+                                @auth
+                                    @if ($comment->user_id === auth()->user()->id)
+                                        <form method="POST" action="{{ route('comments.destroy', $comment) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <div class="">
+                                                <button tybe="submit"
+                                                    class="inline-flex items-center justify-center
                                         gap-2 px-4 py-2 rounded-xl bg-red-600 text-white font-medium shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-60 disabled:cursor-not-allowed">
 
-                                            Delete</button>
+                                                    Delete</button>
 
-                                    </div>
-                                </form>
-                            @endif
-                        @endauth --}}
+                                            </div>
+                                        </form>
+                                    @endif
+                                @endauth
+                            @endforeach
+                        </div>
+
 
                         @auth
                             <form method="POST" action="{{ route('comments.store', $answer) }}" class="mt-3 space-y-2">
